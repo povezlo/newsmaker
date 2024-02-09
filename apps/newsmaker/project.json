@@ -1,0 +1,81 @@
+{
+  "name": "newsmaker",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "org",
+  "sourceRoot": "apps/newsmaker/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/newsmaker",
+        "index": "apps/newsmaker/src/index.html",
+        "browser": "apps/newsmaker/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/newsmaker/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/newsmaker/src/favicon.ico",
+          "apps/newsmaker/src/assets"
+        ],
+        "styles": ["apps/newsmaker/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/newsmaker/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/newsmaker/server.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "newsmaker:build:production"
+        },
+        "development": {
+          "buildTarget": "newsmaker:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "newsmaker:build"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "newsmaker:build",
+        "staticFilePath": "dist/apps/newsmaker/browser"
+      }
+    }
+  }
+}
