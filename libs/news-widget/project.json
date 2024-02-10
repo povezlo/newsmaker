@@ -1,0 +1,9 @@
+{
+  "name": "news-widget",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/news-widget/src",
+  "prefix": "org",
+  "tags": [],
+  "projectType": "library",
+  "targets": {}
+}
